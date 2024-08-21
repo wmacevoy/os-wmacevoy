@@ -1,0 +1,47 @@
+name: Build and Test Copy Command
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up CMake
+      uses: lukka/get-cmake@v3
+
+    - name: Set up GCC on Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get install -y build-essential
+
+    - name: Set up GCC on macOS
+      if: matrix.os == 'macos-latest'
+      run: brew install gcc
+
+    - name: Set up MSVC on Windows
+      if: matrix.os == 'windows-latest'
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
+    - name: Configure CMake
+      run: cmake -S copy_command -B copy_command/build
+
+    - name: Build with CMake
+      run: cmake --build copy_command/build
+
+    - name: Run tests with CTest
+      run: ctest --output-on-failure
+      working-directory: copy_command/build
