@@ -47,7 +47,7 @@ brew install gnupg openssl git-crypt
         Upload the files created (gnupg-pubkey.asc and gnupg-tgz.enc in your windows Downloads directory) to 1Password.
 5. Make SSH keys if you have not already (no password - your drive is encrypted and its only for this laptop):
 ```bash
-test -f ~/.ssh/id_rsa || ssh-keygen
+test -f ~/.ssh/id_rsa || ssh-keygen -t rsa
 ```
 
 6. Export the SSH public key to Github.  You can copy the public key to the clipboard with
@@ -65,7 +65,7 @@ git config --global user.email johndoe@example.com
 cd # change to your WSL home directory
 mkdir projects
 cd projects
-git clone git@github.com:wmacevoy/devops-wmacevoy
+git clone git@github.com:wmacevoy/<course>-wmacevoy
 ```
 9. Run some tests
 ```bash
