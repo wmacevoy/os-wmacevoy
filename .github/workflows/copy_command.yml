@@ -17,24 +17,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
-
-    # Install CMake on Ubuntu (Linux)
-    - name: Install CMake on Linux
-      if: matrix.os == 'ubuntu-latest'
-      run: sudo apt-get update && sudo apt-get install -y cmake build-essential
-
-    # Install CMake on macOS
-    - name: Install CMake on macOS
-      if: matrix.os == 'macos-latest'
-      run: brew install cmake
-
-    # Install CMake on Windows
-    - name: Install CMake on Windows
-      if: matrix.os == 'windows-latest'
-      run: |
-        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
-        refreshenv
+      uses: actions/checkout@latest
+      
+    - name: CMake Action
+      uses: threeal/cmake-action@v2.0.0
 
     - name: Configure CMake
       run: cmake -S copy_command -B copy_command/build
