@@ -19,22 +19,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up CMake
-      uses: actions/setup-cmake@v2
-
-    - name: Set up GCC on Linux
+    # Install CMake on Ubuntu (Linux)
+    - name: Install CMake on Linux
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt-get install -y build-essential
+      run: sudo apt-get update && sudo apt-get install -y cmake build-essential
 
-    - name: Set up GCC on macOS
+    # Install CMake on macOS
+    - name: Install CMake on macOS
       if: matrix.os == 'macos-latest'
-      run: brew install gcc
+      run: brew install cmake
 
-    - name: Set up MSVC on Windows
+    # Install CMake on Windows
+    - name: Install CMake on Windows
       if: matrix.os == 'windows-latest'
-      uses: ilammy/msvc-dev-cmd@v1
+      uses: chrislennon/action-cmake-build@v1
       with:
-        arch: x64
+        cmake_version: '3.21.1'
 
     - name: Configure CMake
       run: cmake -S copy_command -B copy_command/build
