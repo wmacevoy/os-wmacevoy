@@ -85,6 +85,7 @@ int main() {
     remove(source_template);
     remove(destination_template);
 
+    
     if (result == 0) {
         printf("Test passed: Files are identical.\n");
         return 0;
