@@ -15,36 +15,23 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
+    env:
+      BUILD_TYPE: Release
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: CMake Build (Windows)
-      if: matrix.os == 'windows-latest'
+    - name: CMake Build
       uses: threeal/cmake-action@v2.0.0
       with:
         source-dir: copy_command
         build-dir: copy_command/build
         run-build: true
-        build-args: --config Release
+        build-args: ${{ matrix.os == 'windows-latest' && '--config ${BUILD_TYPE}' || '' }}
 
-    - name: CMake Build (Linux/Mac)
-      if: matrix.os != 'windows-latest'
-      uses: threeal/cmake-action@v2.0.0
-      with:
-        source-dir: copy_command
-        build-dir: copy_command/build
-        run-build: true
-
-    - name: CTest Test (Windows)
-      if: matrix.os == 'windows-latest'
+    - name: CTest Test
       uses: threeal/ctest-action@v1.1.0
       with:
         test-dir: copy_command/build
-        args: -C Release
-  
-    - name: CTest Test (Linux/Mac)
-      if: matrix.os != 'windows-latest'
-      uses: threeal/ctest-action@v1.1.0
-      with:
-        test-dir: copy_command/build
+        args: ${{ matrix.os == 'windows-latest' && '-C ${BUILD_TYPE}' || '' }}
