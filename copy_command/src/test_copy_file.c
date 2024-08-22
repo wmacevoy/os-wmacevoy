@@ -1,6 +1,108 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "copy_file.h"
+
+int main() {
+    char source_template[] = "temp_source_XXXXXX";
+    char destination_template[] = "temp_destination_XXXXXX";
+
+#ifdef _WIN32
+    char source_filename[L_tmpnam_s];
+    char destination_filename[L_tmpnam_s];
+
+    if (tmpnam_s(source_filename, L_tmpnam_s) != 0 || tmpnam_s(destination_filename, L_tmpnam_s) != 0) {
+        fprintf(stderr, "Failed to create temporary file names.\n");
+        return 1;
+    }
+
+    FILE *source_file = fopen(source_filename, "w");
+#else
+    int src_fd = mkstemp(source_template);
+    int dest_fd = mkstemp(destination_template);
+
+    FILE *source_file = fdopen(src_fd, "w");
+    char *source_filename = source_template;
+    char *destination_filename = destination_template;
+#endif
+
+    if (!source_file) {
+        perror("Failed to open source file");
+        return 1;
+    }
+
+    const char *content = "This is a test file.";
+    fwrite(content, sizeof(char), strlen(content), source_file);
+    fclose(source_file);
+
+    printf("Source file: %s\n", source_filename);
+    printf("Destination file: %s\n", destination_filename);
+
+    // Copy the file using copy_file function
+    if (copy_file(source_filename, destination_filename) != 0) {
+        perror("Error during file copy");
+        return 1;
+    }
+
+    // Verify that the files are identical
+    FILE *src = fopen(source_template, "rb");
+    FILE *dest = fopen(destination_template, "rb");
+
+    if (!src || !dest) {
+        perror("Failed to open files for comparison");
+        return 1;
+    }
+
+    int result = 0;
+    int ch1, ch2;
+    while (((ch1 = fgetc(src)) != EOF) && ((ch2 = fgetc(dest)) != EOF)) {
+        if (ch1 != ch2) {
+            result = 1;
+            break;
+        }
+    }
+
+    fclose(src);
+    fclose(dest);
+
+    // Clean up temporary files
+    remove(source_template);
+    remove(destination_template);
+
+    if (result == 0) {
+        printf("Test passed: Files are identical.\n");
+        return 0;
+    } else {
+        printf("Test failed: Files are different.\n");
+        return 1;
+    }
+}
+
+
+
+
+
+close(source_file);
+
+printf("Source file: %s\n", source_filename);
+printf("Destination file: %s\n", destination_filename);
+
+// Copy the file using copy_file function
+if (copy_file(source_filename, destination_filename) != 0) {
+  perror("Error during file copy");
+  return 1;
+ }
+
+printf("File copied successfully.\n");
+
+// Additional checks...
+// Clean up...
+}
+~
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef _WIN32
 #include <windows.h>
