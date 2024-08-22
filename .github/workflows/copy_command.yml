@@ -41,7 +41,7 @@ jobs:
       uses: threeal/ctest-action@v1.1.0
       with:
         test-dir: copy_command/build
-        build-config: Release
+        args: -C Release
   
     - name: CTest Test (Linux/Mac)
       uses: threeal/ctest-action@v1.1.0
