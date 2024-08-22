@@ -9,6 +9,7 @@
     #include <unistd.h>
 #endif
 
+#define BUILDING_COPY_FILE
 #include "copy_file.h"
 
 int copy_file(const char *source, const char *destination) {
