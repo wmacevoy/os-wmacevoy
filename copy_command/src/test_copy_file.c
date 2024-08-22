@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(_WIN32) || defined(_WIN64)
+    #include <windows.h>
+#else
+    #include <fcntl.h>
+    #include <unistd.h>
+#endif
+
 #include "copy_file.h"
 
 int main() {
@@ -45,8 +53,8 @@ int main() {
     }
 
     // Verify that the files are identical
-    FILE *src = fopen(source_template, "rb");
-    FILE *dest = fopen(destination_template, "rb");
+    FILE *src = fopen(source_filename, "rb");
+    FILE *dest = fopen(destination_filename, "rb");
 
     if (!src || !dest) {
         perror("Failed to open files for comparison");
@@ -55,25 +63,32 @@ int main() {
 
     int result = 0;
     int ch1, ch2;
-    while (((ch1 = fgetc(src)) != EOF) && ((ch2 = fgetc(dest)) != EOF)) {
-        if (ch1 != ch2) {
-            result = 1;
-            break;
-        }
+    int offset = 0;
+    for (;;) {
+      if (ch1 != EOF) ch1 = fgetc(src);
+      if (ch2 != EOF) ch2 = fgetc(dest);
+      if (ch1 != ch2) {
+	result = 1;
+	break;
+      }
+      if (ch1 == EOF && ch2 == EOF) {
+	break;
+      }
+      ++offset;
     }
 
     fclose(src);
     fclose(dest);
 
     // Clean up temporary files
-    remove(source_template);
-    remove(destination_template);
+    //    remove(source_filename);
+    //    remove(destination_filename);
 
     if (result == 0) {
         printf("Test passed: Files are identical.\n");
         return 0;
     } else {
-        printf("Test failed: Files are different.\n");
+        printf("Test failed: Files are different (ch1 = %d, ch2=%d at offset %d.\n",ch1,ch2,offset);
         return 1;
     }
 }
