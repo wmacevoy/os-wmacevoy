@@ -19,15 +19,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: CMake Build
+    - name: CMake Build (Windows)
+      if: matrix.os == 'windows-latest'
       uses: threeal/cmake-action@v2.0.0
       with:
         source-dir: copy_command
         build-dir: copy_command/build
         run-build: true
-        build-type: ${{ matrix.os == 'windows-latest' && 'Release' || '' }}
+        build-args: -C Release
 
-    - name: CTest Test
+    - name: CMake Build (Linux/Mac)
+      if: matrix.os != 'windows-latest'
+      uses: threeal/cmake-action@v2.0.0
+      with:
+        source-dir: copy_command
+        build-dir: copy_command/build
+        run-build: true
+
+    - name: CTest Test (Windows)
+      if: matrix.os == 'windows-latest'
+      uses: threeal/ctest-action@v1.1.0
+      with:
+        test-dir: copy_command/build
+        build-config: Release
+  
+    - name: CTest Test (Linux/Mac)
       uses: threeal/ctest-action@v1.1.0
       with:
         test-dir: copy_command/build
