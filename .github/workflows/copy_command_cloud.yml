@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [debian:11, alpine:3.18]
+        os: ['debian:11', 'alpine:3.18']
         arch: [amd64, arm64]
 
     steps:
