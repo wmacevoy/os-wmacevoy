@@ -1,6 +1,7 @@
 # Copy Command
 
-![Test Status](https://github.com/wmacevoy/os-wmacevoy/actions/workflows/copy_command.yml/badge.svg)
+![Test Status (Windows|MacOS|Ubuntu)](https://github.com/wmacevoy/os-wmacevoy/actions/workflows/copy_command.yml/badge.svg)
+![Test Status (Debian|Alpine x ARM|AMD)](https://github.com/wmacevoy/os-wmacevoy/actions/workflows/copy_command_cloud.yml/badge.svg)
 
 This project contains a cross-platform command-line utility for copying files.
 
