@@ -4,10 +4,14 @@ on:
     push:
       paths:
         - 'copy_command/**'
+      paths-ignore:
+        - 'copy_command/**/*.md'
     pull_request:
       paths:
         - 'copy_command/**'
-
+      paths-ignore:
+        - 'copy_command/**/*.md'
+  
 jobs:
   build-and-test:
 
