@@ -48,7 +48,7 @@ Ensure that you have a C compiler installed on your system:
 - **linux:** Install GCC:
   ```sh
   sudo apt-get install -y gcc
-```
+  ```
 
 ### Build
 
@@ -68,9 +68,7 @@ Ensure that you have a C compiler installed on your system:
   cmake --build build
   ```
 
-## Test
-
-### Build
+## Build
 
 - **Windows:**
   ```sh
