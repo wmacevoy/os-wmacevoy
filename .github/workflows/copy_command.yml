@@ -19,15 +19,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: CMake Action
-      uses: threeal/cmake-action@v2.0.0
+    - name: CMake Build
+      uses: threeal/cmake-action@v2
+      with:
+        source-dir: copy_command
+        build-dir: copy_command/build
+        run-build: true
 
-    - name: Configure CMake
-      run: cmake -S copy_command -B copy_command/build
-
-    - name: Build with CMake
-      run: cmake --build copy_command/build
-
-    - name: Run tests with CTest
-      run: ctest --output-on-failure
-      working-directory: copy_command/build
+    - name: CTest Test
+      uses: threeal/ctest-action@v2
+      with:
+        test-dir: copy_command/build
