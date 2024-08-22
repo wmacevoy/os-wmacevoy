@@ -26,7 +26,7 @@ jobs:
         source-dir: copy_command
         build-dir: copy_command/build
         run-build: true
-        build-args: -C Release
+        build-args: --config Release
 
     - name: CMake Build (Linux/Mac)
       if: matrix.os != 'windows-latest'
