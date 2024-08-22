@@ -69,7 +69,7 @@ Ensure that you have a C compiler installed on your system:
   cmake --build build
   ```
 
-## Build
+## Test
 
 - **Windows:**
   ```sh
