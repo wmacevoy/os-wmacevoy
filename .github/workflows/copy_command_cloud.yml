@@ -42,9 +42,16 @@ jobs:
           ctest --test-dir build --output-on-failure
           "
 
+    - name: Make test results filename
+      run: |
+        OS_VERSION="${{ matrix.os }}"
+        OS_VERSION="${OS_VERSION//:/_}"
+        OS_VERSION="${OS_VERSION//./-}"
+        echo "OS_VERSION=${OS_VERSION}" >> $GITHUB_ENV
+
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: test-results-${{ matrix.os | replace(':', '-') }}-${{ matrix.arch }}
+        name: "test-results-${{ env.OS_VERSION }}-${{ matrix.arch }}"
         path: copy_command/build/Testing/Temporary/LastTest.log
