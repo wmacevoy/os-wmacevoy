@@ -28,10 +28,11 @@ jobs:
         source-dir: copy_command
         build-dir: copy_command/build
         run-build: true
-        build-args: ${{ matrix.os == 'windows-latest' && '--config ${BUILD_TYPE}' || '' }}
+        build-args: ${{ matrix.os == 'windows-latest' && '--config' }} ${{ matrix.os == 'windows-latest' && env.BUILD_TYPE }}
 
     - name: CTest Test
       uses: threeal/ctest-action@v1.1.0
       with:
         test-dir: copy_command/build
-        args: ${{ matrix.os == 'windows-latest' && '-C ${BUILD_TYPE}' || '' }}
+        args: ${{ matrix.os == 'windows-latest' && '-C' }} ${{ matrix.os == 'windows-latest' && env.BUILD_TYPE }}
+
