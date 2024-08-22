@@ -2,9 +2,11 @@ name: Build and Test Copy Command
 
 on:
   push:
-    branches: [main]
+    paths:
+      - 'copy_command/**'
   pull_request:
-    branches: [main]
+    paths:
+      - 'copy_command/**'
 
 jobs:
   build:
