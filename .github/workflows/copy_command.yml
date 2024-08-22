@@ -1,4 +1,4 @@
-name: Build and Test Copy Command
+name: Build and Test copy_command on (Windows|MacOS|Ubuntu)x(x86)
 
 on:
   push:
