@@ -1,4 +1,4 @@
-name: Build and Test copy_command on (Debian|Alpine)x(x86|ARM)
+name: Build and Test copy_file on (Debian|Alpine)x(x86|ARM)
 
 on:
     push:
