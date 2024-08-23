@@ -35,6 +35,7 @@ if(WIN32)
         $<TARGET_FILE:copy_file> $<TARGET_FILE_DIR:test_copy_file>)
 endif()
 
+
 # Enable testing
 enable_testing()
 add_test(NAME CopyFileTest COMMAND test_copy_file)
