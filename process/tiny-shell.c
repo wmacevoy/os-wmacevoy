@@ -17,7 +17,7 @@ int main() {
 
     while (1) {
         // Print the shell prompt
-        printf("tiny-shell> ");
+        printf("tiny-shell (pid %d)> ",getpid());
         fflush(stdout);
 
         // Read the command from the user
@@ -58,6 +58,22 @@ int main() {
         // Check if the command is "exit"
         else if (strcmp(args[0], "exit") == 0) {
             break;
+        }
+        else if (strcmp(args[0], "fork") == 0) {
+            pid_t pid = fork();
+            if (pid < 0) {
+                perror("fork failed");
+            } else if (pid == 0) {
+                // back to business as child
+            } else {
+                do {
+                    waitpid(pid, &status, WUNTRACED);
+                } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+            }
+        }
+        else if (strcmp(args[0], "exec") == 0) {
+                execute_command(args+1);
+                exit(EXIT_FAILURE);
         }
         // For any other command, fork and exec
         else {
