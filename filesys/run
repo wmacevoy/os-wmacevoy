@@ -1,0 +1,2 @@
+docker build -t filesys . && docker run --privileged=true --rm -it -v $(pwd)/data:/data filesys /bin/bash -i
+
