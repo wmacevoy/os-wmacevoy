@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -fPIC -Iinclude
 
 # Version numbers
-MAJOR = 1
+MAJOR = 2
 MINOR = 0
 REVISION = 0
 VERSION = $(MAJOR).$(MINOR).$(REVISION)
@@ -33,8 +33,9 @@ $(REALNAME): $(OBJS)
 
 # Create symbolic links
 symlinks:
-	ln -sf $(REALNAME) $(SONAME)
-	ln -sf $(SONAME) $(LIBNAME)
+	ln -sf $(LIBNAME).$(MAJOR) $(LIBNAME)
+	ln -sf $(LIBNAME).$(MAJOR).$(MINOR) $(LIBNAME).$(MAJOR)
+	ln -sf $(LIBNAME).$(MAJOR).$(MINOR).$(REVISION) $(LIBNAME).$(MAJOR).$(MINOR)
 
 # Clean up generated files
 clean:
