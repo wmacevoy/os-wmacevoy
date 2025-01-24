@@ -3,7 +3,7 @@ build: Dockerfile hello.cpp
 run: build
 	docker run --rm cpp-hello-world
 clean:
-	docker rmi cpp-hello-world
+	docker rmi cpp-hello-world && rm build
 CHAT=https://chatgpt.com/share/6793d34e-b334-8009-893b-0e8845939d10
 chat:
 	@if [ "$(OS)" = "Windows_NT" ]; then \
