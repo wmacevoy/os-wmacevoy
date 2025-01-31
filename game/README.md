@@ -3,7 +3,7 @@
 Game starts with two players each with 1 dollar.
 
 In each turn,
-* A fair coin is tossed
+* The an unfair coin is tossed that favors player 2 60:40
 * The winner gets 1/2 of the losers money.
 
 The simulation gives the probabilities and outcomes after 10 turns.
