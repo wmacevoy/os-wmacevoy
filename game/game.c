@@ -4,7 +4,7 @@
 
 int main() {
    double prob = 1, player1 = 1, player2 = 1;
-   int turns = 11;
+   int turns = 10;
    printf("prob,player1,player2,pid\n");
    for (int turn = 0; turn < turns; ++turn) {
       if (fork() != 0) {
