@@ -6,10 +6,19 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+int sum(int n) {
+    return n > 0 ? n + sum(n-1) : 0;
+}
+
 // argc=3, argv={"ls","-l",NULL}
 int main(int argc, const char *argv[]) {
     pid_t parent_pid = getpid();
     pid_t child_pid = -1;
+
+    printf("main lives at %p\n", &main);
+    printf("sum lives at %p\n",&sum);
+    printf("parent_pid lives at %p\n",&parent_pid);
+    printf("child_pid lives at %p\n",&child_pid);
 
     pid_t status = fork();
     if (status == -1) {
