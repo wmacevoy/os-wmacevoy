@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    ports:
+      - "12345:12345"  # maps container's port to host for testing
+  client1:
+    build: ./client
+    depends_on:
+      - server
+  client2:
+    build: ./client
+    depends_on:
+      - server
