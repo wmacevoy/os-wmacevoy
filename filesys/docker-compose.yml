@@ -1,0 +1,11 @@
+services:
+  filesys:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true
+    volumes:
+      - ./data:/data
+    stdin_open: true
+    tty: true
+    container_name: filesys
