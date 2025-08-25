@@ -14,3 +14,7 @@ docker build -t hello .
 ```bash
 docker run --rm hello
 ```
+
+## Conversation
+
+https://chatgpt.com/share/68acb62d-a238-8009-a5b7-fb9b389ea440
