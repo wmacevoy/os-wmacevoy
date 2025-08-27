@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>   // for uintptr_t
 
+int main();
 int child(int child_pid, int parent_pid);
 int parent(int child_pid, int parent_pid);
 
