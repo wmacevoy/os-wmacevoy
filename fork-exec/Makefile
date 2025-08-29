@@ -1,4 +1,7 @@
 all : fork-example
 fork-example : fork-example.c
-run : fork-example
+hello : hello.c
+run : fork-example hello
 	./fork-example
+
+game : game.c

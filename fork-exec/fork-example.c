@@ -48,22 +48,8 @@ int main(void) {
 }
 
 int child(int child_pid, int parent_pid) {
-    double *child_heap = (double*)malloc(sizeof *child_heap);
-    if (!child_heap) { perror("malloc"); _exit(1); }
-    *child_heap = 2.71828;
-
-    printf("=== In child, pid=%d (parent pid as seen by main=%d) ===\n",
-           getpid(), parent_pid);
-    print_function_addrs();
-    printf("child_pid value          = %d\n", child_pid);
-    printf("parent_pid value         = %d\n", parent_pid);
-    printf("&child_pid (child stack) = %p\n", (void*)&child_pid);
-    printf("&parent_pid (child stack)= %p\n", (void*)&parent_pid);
-    printf("child_heap (heap)        = %p (value=%f)\n", (void*)child_heap, *child_heap);
-    printf("----------------------------------------\n");
-
-    /* Not strictly needed before process exit, but good hygiene: */
-    free(child_heap);
+    execl("./hello",NULL);
+    printf("goodbye.\n");
     return 0;
 }
 
