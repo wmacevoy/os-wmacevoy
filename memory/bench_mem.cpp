@@ -52,7 +52,7 @@ struct Dataset {
         // big_vec: contiguous data (we make it max(vec_size, bust_size) so it serves both roles)
         std::size_t N = std::max(vec_size, bust_size);
         big_vec.resize(N);
-        std::iota(big_vec.begin(), big_vec.end(), 1);
+        std::iota(big_vec.begin(), big_vec.end(), 1); // big_vec = {1,...,N}
 
         // random indices for vector random access (length = vec_size)
         rand_indices.resize(vec_size);
@@ -63,8 +63,8 @@ struct Dataset {
         // map & unordered_map with one million entries
         // keys are shuffled to avoid trivial in-order artifacts for lookups
         std::vector<int> keys(map_size);
-        std::iota(keys.begin(), keys.end(), 0);
-        std::shuffle(keys.begin(), keys.end(), rng.eng);
+        std::iota(keys.begin(), keys.end(), 0); // keys = {0,...,N-1}
+        std::shuffle(keys.begin(), keys.end(), rng.eng); // shuffle keys
 
         m.clear();
         m.insert(m.begin(), {0,0}); // ensure tree exists before bulk (minor)
