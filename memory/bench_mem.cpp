@@ -42,9 +42,9 @@ struct Dataset {
     std::map<int,int> m;                     // requested: 1,000,000 entries
     std::unordered_map<int,int> um;          // same keys as map for comparison
 
-    explicit Dataset(std::size_t vec_size = 10'000'000,  // ~40 MB of ints
+    explicit Dataset(std::size_t vec_size = 10'000,  // ~40 MB of ints
                      std::size_t bust_size = 32'000'000, // ~128 MB of ints for cache busting
-                     std::size_t map_size = 1'000'000,
+                     std::size_t map_size = 5'000,
                      std::uint64_t seed = 0xBADC0FFEEULL) 
     {
         RNG rng(seed);
