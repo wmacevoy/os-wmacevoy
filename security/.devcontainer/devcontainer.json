@@ -1,0 +1,32 @@
+{
+  // Dev container for the project. Kept minimal and valid JSONC.
+  "name": "security-dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Use the repo root as the build context so the Dockerfile can access repository files if needed.
+    "context": ".."
+  },
+  // Use root temporarily so the extension can connect while the image/user creation is finalized.
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-vscode.makefile-tools",
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "runArgs": [
+    "--init",
+    "--cap-add=SYS_PTRACE",
+    "--security-opt=seccomp=unconfined"
+  ],
+  // postCreateCommand runs after the container is created. Keep as sudo if ldconfig needs elevated perms.
+  "postCreateCommand": "sudo ldconfig"
+}
